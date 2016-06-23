@@ -1,0 +1,25 @@
+{% extends "TmBundle:Template:navbar.html.twig" %}
+
+{% block bodyContent %}
+    <div class="container">
+        <div class="row">
+            <h1>Nasz zespół</h1>
+        </div>
+        {% for row in userData %}
+            <div class="row">
+                    <div class="col-md-3">
+                        {% if row.idUser.avatar != null %}<img src="{{ asset(row.idUser.avatar) }}" class="thumbnail img-rounded img-responsive" alt="" />{% endif %}
+                    </div>
+                <div class="col-md-3">
+                    <h2>{{ row.name }} {{ row.lastName }}</h2>
+                    <p></p><a href="{{ row.www }}">{{ row.www }}</a></p>
+                    {% if row.phone != null %}<p style="color: #fff !important;">Telefon: {{ row.phone }}</p>{% endif %}
+                    {% if row.about != null %}<p style="color: #fff !important;">O mnie: {{ row.about }}</p>{% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+
+
+    </div>
+{% endblock%}

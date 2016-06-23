@@ -5,6 +5,7 @@ namespace TmBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends Controller {
@@ -158,4 +159,19 @@ class PageController extends Controller {
         return $this->render("TmBundle:Template:flashMsg.html.twig");
     }
 
+    /**
+     * @Route("/users-team", name = "users_team_tm")
+     * @Template()
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function userTeamAction() {
+        $avatars = $this->getDoctrine()->getRepository('TmBundle:User')->findAll();
+        $userData = $this->getDoctrine()->getRepository('TmBundle:DataUser')->findAll();
+        return [
+            'user' => $avatars,
+            'styles' => $this->getStyles(),
+            'userData' => $userData
+        ];
+    }
 }
