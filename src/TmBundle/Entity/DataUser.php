@@ -5,6 +5,7 @@ namespace TmBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
+use TmBundle\Entity\User;
 
 
 /**
@@ -208,11 +209,11 @@ class DataUser {
     /**
      * Set idUser
      *
-     * @param \TmBundle\Entity\User $idUser
+     * @param User $idUser
      *
      * @return DataUser
      */
-    public function setIdUser(\TmBundle\Entity\User $idUser = null)
+    public function setIdUser(User $idUser = null)
     {
         $this->idUser = $idUser;
 
@@ -222,7 +223,7 @@ class DataUser {
     /**
      * Get idUser
      *
-     * @return \TmBundle\Entity\User
+     * @return User
      */
     public function getIdUser()
     {

@@ -2,8 +2,12 @@
 
 namespace TmBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use TmBundle\Entity\Project;
+use TmBundle\Entity\Tag;
+use TmBundle\Entity\User;
 
 /**
  * @ORM\Entity()
@@ -27,6 +31,12 @@ class Task
      */
     private $title;
 
+    /**
+     * @ORM\ManyToOne(
+     *     targetEntity="Project", inversedBy="tasks"
+     * )
+     */
+    private $project;
 
     /**
      * @ORM\ManyToOne(
@@ -48,7 +58,6 @@ class Task
      */
     private $description;
 
-
     /**
      * @ORM\Column(type="string", length=255)
      *
@@ -60,7 +69,6 @@ class Task
      * @ORM\Column(type="datetime")
      */
     private $date;
-
 
     /**
      * @ORM\ManyToMany(
@@ -74,22 +82,15 @@ class Task
      */
     private $tags;
 
-
-/////////////////////////////////////////////////
-
-
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new ArrayCollection();
+        $this->project = new ArrayCollection();
         $this->date = new \DateTime();
     }
-
-
-/////////////////////////////////////////////////
-
 
     /**
      * Get id
@@ -200,11 +201,11 @@ class Task
     /**
      * Set author
      *
-     * @param \TmBundle\Entity\User $author
+     * @param User $author
      *
      * @return Task
      */
-    public function setAuthor(\TmBundle\Entity\User $author = null)
+    public function setAuthor(User $author = null)
     {
         $this->author = $author;
 
@@ -214,7 +215,7 @@ class Task
     /**
      * Get author
      *
-     * @return \TmBundle\Entity\User
+     * @return User
      */
     public function getAuthor()
     {
@@ -224,11 +225,11 @@ class Task
     /**
      * Add tag
      *
-     * @param \TmBundle\Entity\Tag $tag
+     * @param Tag $tag
      *
      * @return Task
      */
-    public function addTag(\TmBundle\Entity\Tag $tag)
+    public function addTag(Tag $tag)
     {
         $this->tags[] = $tag;
 
@@ -238,9 +239,9 @@ class Task
     /**
      * Remove tag
      *
-     * @param \TmBundle\Entity\Tag $tag
+     * @param Tag $tag
      */
-    public function removeTag(\TmBundle\Entity\Tag $tag)
+    public function removeTag(Tag $tag)
     {
         $this->tags->removeElement($tag);
     }
@@ -253,5 +254,49 @@ class Task
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * @param $project
+     * @return $this
+     */
+    public function setProject($project)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Add idProject
+     *
+     * @param \TmBundle\Entity\Project $project
+     * @return Task
+     * @internal param \TmBundle\Entity\Project $projects
+     *
+     */
+    public function addProject(Project $project)
+    {
+        $this->project[] = $project;
+
+        return $this;
+    }
+
+    /**
+     * Remove idProject
+     *
+     * @param Project $idProject
+     */
+    public function removeProject(Project $idProject)
+    {
+        $this->project->removeElement($idProject);
     }
 }
