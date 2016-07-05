@@ -94,4 +94,12 @@ class Project
 
         return $this;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function  getTasks()
+    {
+        return $this->tasks;
+    }
 }

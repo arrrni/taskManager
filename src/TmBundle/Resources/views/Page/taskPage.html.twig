@@ -11,51 +11,56 @@
             <div class="row">
                 <div class="flash-messages col-sm-4 col-md-offset-2"></div>
             </div>
-            <article id="list_task" class="col-md-10 col-md-offset-1">
-                <table class="table table-bordered table-striped table-hover">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Autor</th>
-                        <th>Zadanie</th>
-                        <th>Projekt</th>
-                        <th>Poziom</th>
-                        <th>Wyjaśnienie</th>
-                        <th>Data</th>
-                        <th>Opcje</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    {% for task in tasks %}
+            {% for project in projects %}
+                <article id="list_task" class="col-md-10 col-md-offset-1">
+                    <h3>{{ project.title }}</h3>
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
                         <tr>
-                            <td>{{ task.id }}</td>
-                            <td>{{ task.author.username }}</td>
-                            <td>{{ task.title }}</td>
-                            <td>{{ task.project.title }}</td>
-                            <td>{{ task.level }}</td>
-                            <td>{{ task.description }}</td>
-                            <td>{{ task.date | date('d.m.Y, H:m') }}</td>
-                            <td class="task-btn-action">
-                                <a class="btn-task-subscribe btn btn-sm btn-success"
-                                   href="{{ path('subscribe_task_tm', {'task': task.id}) }}">Zapisz się</a>
-                                <a class="btn btn-sm btn-primary" href="{{ path('edit_task_tm', {'id': task.id}) }}"
-                                   data-toggle="modal" data-target="#editTask">Edytuj</a>
-                                <a class="btn-task-delete btn btn-sm btn-danger"
-                                   href="{{ path('remove_task_tm', {'id': task.id }) }}">Usuń</a>
-                            </td>
+                            <th>ID</th>
+                            <th>Autor</th>
+                            <th>Zadanie</th>
+                            <th>Poziom</th>
+                            <th>Wyjaśnienie</th>
+                            <th>Data</th>
+                            <th>Opcje</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </article>
+                        </thead>
+
+                        <tbody>
+                        {% for task in project.tasks %}
+                            <tr>
+                                <td>{{ task.id }}</td>
+                                <td>{{ task.author.username }}</td>
+                                <td>{{ task.title }}</td>
+                                <td>{{ task.level }}</td>
+                                <td>{{ task.description }}</td>
+                                <td>{{ task.date | date('d.m.Y, H:m') }}</td>
+                                <td class="task-btn-action">
+                                    <a class="btn-task-subscribe btn btn-sm btn-success"
+                                       href="{{ path('subscribe_task_tm', {'task': task.id}) }}">Zapisz się</a>
+                                    <a class="btn btn-sm btn-primary"
+                                       href="{{ path('edit_task_tm', {'id': task.id}) }}"
+                                       data-toggle="modal" data-target="#editTask">Edytuj</a>
+                                    <a class="btn-task-delete btn btn-sm btn-danger"
+                                       href="{{ path('remove_task_tm', {'id': task.id }) }}">Usuń</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </article>
+            {% endfor %}
             <div class="row">
-                <div class="col-md-2 col-md-offset-5">
+                <div class="col-md-2 col-md-offset-4">
                     <a id="new-task" class="btn btn-primary btn-lg" href="{{ path('add_task_tm') }}" data-toggle="modal"
                        data-target="#addTask">Dodaj Zadanie</a>
                 </div>
+                <div class="col-md-2">
+                    <a id="new-task" class="btn btn-primary btn-lg" href="{{ path('add_project_tm') }}" data-toggle="modal"
+                       data-target="#addTask">Dodaj Projekt</a>
+                </div>
             </div>
-
 
             <!-- Modal -->
 

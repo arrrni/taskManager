@@ -38,10 +38,10 @@ class PageController extends Controller {
      */
     public function taskPageAction(Request $request) {
 
-        $tasks = $this->getDoctrine()->getRepository('TmBundle:Task')->findAll();
+        $projects = $this->getDoctrine()->getRepository('TmBundle:Project')->findAll();
 
         return [
-            'tasks' => $tasks,
+            'projects' => $projects,
             'styles' => $this->getStyles()
         ];
 
